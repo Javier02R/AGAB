@@ -110,7 +110,7 @@ loginForm.addEventListener('submit', async (e) => {
   }
 });
 
-// Opcional: registrar (solo cuentas permitidas)
+/*/ Opcional: registrar (solo cuentas permitidas)
 btnRegister.addEventListener('click', async () => {
   const email = emailInput.value.trim();
   const pass = passwordInput.value;
@@ -123,7 +123,7 @@ btnRegister.addEventListener('click', async () => {
   } catch (err) {
     alert("Error al crear cuenta: " + err.message);
   }
-});
+});/*/
 
 /////////////////////
 // FIRESTORE CRUD + LISTENER
