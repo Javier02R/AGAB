@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tesorería OBC AGAB</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Fonts (opcional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Gestor de Tesorería</h1>
+      <div id="user-area">
+        <span id="user-email"></span>
+        <button id="btn-logout" class="btn secondary">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="auth" id="auth-section">
+        <h2>Acceso</h2>
+        <form id="login-form" class="card">
+          <label>Email
+            <input id="email" type="email" required />
+          </label>
+          <label>Contraseña
+            <input id="password" type="password" required />
+          </label>
+          <div class="row">
+            <button type="submit" class="btn primary">Entrar</button>
+            <!--<button id="btn-register" type="button" class="btn ghost">Registrar (opcional)</button>-->
+          </div>
+          <p class="hint">Solo las cuentas autorizadas pueden usar la app. <strong>No compartas tu contraseña.</strong></p>
+        </form>
+      </section>
+
+      <section id="app-section" class="hidden">
+        <div class="grid">
+          <div class="card">
+            <h3>Nuevo registro</h3>
+            <form id="entry-form">
+              <label>Tipo
+                <select id="type" required>
+                  <option value="ingreso">Ingreso</option>
+                  <option value="gasto">Gasto</option>
+                  <option value="donacion">Donación</option>
+                </select>
+              </label>
+
+              <label>Sección
+                <select id="section" required>
+                  <option value="actividades">Actividades</option>
+                  <option value="recaudacion_socios">Recaudación anual de socios</option>
+                  <option value="otros_ingresos">Otros ingresos</option>
+                  <option value="gastos_totales">Gastos</option>
+                </select>
+              </label>
+
+              <label>Nombre / Actividad
+                <input id="activityName" type="text" required />
+              </label>
+
+              <label>Fecha
+                <input id="date" type="date" required />
+              </label>
+
+              <label>Monto (ej. 123.45)
+                <input id="amount" type="number" step="0.01" required />
+              </label>
+
+              <label>Notas
+                <input id="notes" type="text" />
+              </label>
+
+              <div class="row">
+                <button type="submit" class="btn primary">Guardar</button>
+                <button id="btn-clear" type="button" class="btn ghost">Limpiar</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Filtros & Exportar</h3>
+            <label>Desde
+              <input id="filter-from" type="date" />
+            </label>
+            <label>Hasta
+              <input id="filter-to" type="date" />
+            </label>
+            <label>Sección
+              <select id="filter-section">
+                <option value="">Todas</option>
+                <option value="actividades">Actividades</option>
+                <option value="recaudacion_socios">Recaudación anual de socios</option>
+                <option value="otros_ingresos">Otros ingresos</option>
+                <option value="gastos_totales">Gastos</option>
+              </select>
+            </label>
+            <label>Tipo
+              <select id="filter-type">
+                <option value="">Todos</option>
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+                <option value="donacion">Donación</option>
+              </select>
+            </label>
+
+            <div class="row">
+              <button id="btn-filter" class="btn">Aplicar filtro</button>
+              <button id="btn-export" class="btn primary">Exportar a PDF</button>
+            </div>
+
+            <hr />
+
+            <h4>Totales (filtro activo)</h4>
+            <div id="totals">
+              <div>Ingresos: <span id="total-ingresos">0.00</span></div>
+              <div>Gastos: <span id="total-gastos">0.00</span></div>
+              <div>Donaciones: <span id="total-donaciones">0.00</span></div>
+              <div>Balance: <strong id="total-balance">0.00</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Registros</h3>
+          <table id="entries-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Sección</th>
+                <th>Actividad</th>
+                <th>Monto</th>
+                <th>Notas</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="entries-body">
+              <!-- llenado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>AGAB 2025 - Todos los derechos reservados</small>
+    </footer>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- jsPDF + autotable + html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- App logic -->
+  <script src="app.js"></script>
+</body>
+</html>

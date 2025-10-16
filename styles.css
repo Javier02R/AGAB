@@ -1,0 +1,247 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --success: #10b981;
+  --danger: #ef4444;
+  --radius: 10px;
+  font-family: 'Inter', system-ui, Arial, sans-serif;
+}
+
+/* 🔧 Base Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 16px;
+}
+
+/* 🔷 Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+/* 🔒 User area */
+#user-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#user-email {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* 🔹 Buttons */
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e6e9ef;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+.btn.primary {
+  background: var(--accent);
+  color: white;
+}
+.btn.secondary {
+  background: #efefef;
+}
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #e6e9ef;
+}
+.btn:hover {
+  filter: brightness(0.95);
+}
+
+/* 🔹 Cards */
+.card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+.auth .card {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* 🔹 Grid (desktop) */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+/* 🔸 Labels & Inputs */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+/* 🔹 Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+thead th {
+  background: #fafbff;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #eef2ff;
+  font-size: 13px;
+}
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+.actions button {
+  margin-right: 6px;
+}
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* 🔸 Footer */
+footer {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* ✅ Responsive design */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #user-area {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* 📱 Móviles pequeños */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  /* Formularios */
+  .card form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 13px;
+  }
+
+  input,
+  select {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Hacer tabla desplazable horizontalmente */
+  .card table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+  table thead,
+  table tbody,
+  table tr,
+  table td,
+  table th {
+    white-space: nowrap;
+  }
+
+  /* Totales más visibles */
+  #totals div {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+}
+
+/* 🔸 Helpers */
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hidden {
+  display: none;
+}
